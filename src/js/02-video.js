@@ -6,10 +6,10 @@ const player = new Player(iframe);
 let playbackCurrentSecond;
 
 player.on('timeupdate', data => {
-  playbackCurrentSecond = parseInt(data.seconds);
-  localStorage.setItem('playbackCurrentSecond', `${playbackCurrentSecond}`);
+   playbackCurrentSecond = parseInt(data.seconds);
+   localStorage.setItem('playbackCurrentSecond', `${playbackCurrentSecond}`);
 });
 
 player.on('loaded', () => {
-  player.setCurrentTime(localStorage.getItem('playbackCurrentSecond'));
+   player.setCurrentTime(localStorage.getItem('playbackCurrentSecond'));
 });
