@@ -11,10 +11,7 @@ class Form {
    }
 
    onValidationSuccess() {
-      console.log({
-         [this.formEmailInputEl.name]: this.formEmailInputEl.value,
-         [this.formMessageInputEl.name]: this.formMessageInputEl.value,
-      });
+      console.log(this.userData);
 
       this.userData = {};
       return this.formEl.reset();
