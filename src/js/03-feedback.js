@@ -5,7 +5,7 @@ class Form {
       this.formEl = document.querySelector(selector);
       this.formEmailInputEl = this.formEl.elements['email'];
       this.formMessageInputEl = this.formEl.elements['message'];
-      this.formSubmitBtnEl = this.formEl.elements.nodeName === 'BUTTON';
+      this.formSubmitBtnEl = this.formEl.elements['button[type="submit"]'];
       this.userData = {};
       this.initEvents();
    }
