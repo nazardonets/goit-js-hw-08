@@ -6,6 +6,7 @@ class Form {
       this.formEmailInputEl = this.formEl.elements['email'];
       this.formMessageInputEl = this.formEl.elements['message'];
       this.formSubmitBtnEl = this.formEl.elements.nodeName === 'BUTTON';
+      this.userData = {};
       this.initEvents();
    }
 
@@ -15,6 +16,7 @@ class Form {
          [this.formMessageInputEl.name]: this.formMessageInputEl.value,
       });
 
+      this.userData = {};
       return this.formEl.reset();
    }
 
@@ -36,7 +38,12 @@ class Form {
       this.formEl.addEventListener(
          'input',
          throttle(e => {
-            localStorage.setItem(`${e.target.name}`, `${e.target.value}`);
+            this.userData[e.target.name] = e.target.value;
+
+            localStorage.setItem(
+               'feedback-form-state',
+               JSON.stringify(this.userData)
+            );
          }, 500)
       );
 
@@ -50,8 +57,16 @@ class Form {
       });
 
       window.addEventListener('load', () => {
-         this.formEmailInputEl.value = localStorage.getItem('email');
-         this.formMessageInputEl.value = localStorage.getItem('message');
+         this.userData.email = JSON.parse(
+            localStorage.getItem('feedback-form-state')
+         ).email;
+
+         this.userData.message = JSON.parse(
+            localStorage.getItem('feedback-form-state')
+         ).message;
+
+         this.formEmailInputEl.value = this.userData.email;
+         this.formMessageInputEl.value = this.userData.message;
       });
    }
 }
