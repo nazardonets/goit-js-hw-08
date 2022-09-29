@@ -38,11 +38,7 @@ class Form {
          'input',
          throttle(e => {
             this.userData[e.target.name] = e.target.value;
-
-            localStorage.setItem(
-               'feedback-form-state',
-               JSON.stringify(this.userData)
-            );
+            save('feedback-form-state', this.userData);
          }, 500)
       );
 
