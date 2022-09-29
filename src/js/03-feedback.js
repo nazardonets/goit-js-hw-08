@@ -1,4 +1,5 @@
 import throttle from 'lodash.throttle';
+import { save, load, remove } from './storage';
 
 class Form {
    constructor({ selector }) {
@@ -14,6 +15,7 @@ class Form {
       console.log(this.userData);
 
       this.userData = {};
+      remove('feedback-form-state');
       return this.formEl.reset();
    }
 
@@ -54,16 +56,16 @@ class Form {
       });
 
       window.addEventListener('load', () => {
-         this.userData.email = JSON.parse(
-            localStorage.getItem('feedback-form-state')
-         ).email;
+         if (load('feedback-form-state') === undefined) {
+            this.formEmailInputEl.value = '';
+            this.formMessageInputEl.value = '';
+         } else {
+            this.userData.email = load('feedback-form-state').email;
+            this.userData.message = load('feedback-form-state').message;
 
-         this.userData.message = JSON.parse(
-            localStorage.getItem('feedback-form-state')
-         ).message;
-
-         this.formEmailInputEl.value = this.userData.email;
-         this.formMessageInputEl.value = this.userData.message;
+            this.formEmailInputEl.value = this.userData.email;
+            this.formMessageInputEl.value = this.userData.message;
+         }
       });
    }
 }
