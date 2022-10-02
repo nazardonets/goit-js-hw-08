@@ -7,14 +7,21 @@ class Form {
       this.formEmailInputEl = this.formEl.elements['email'];
       this.formMessageInputEl = this.formEl.elements['message'];
       this.formSubmitBtnEl = this.formEl.elements['button[type="submit"]'];
-      this.userData = {};
+      this.userData = {
+         email: '',
+         message: '',
+      };
       this.initEvents();
    }
 
    onValidationSuccess() {
       console.log(this.userData);
 
-      this.userData = {};
+      this.userData = {
+         email: '',
+         message: '',
+      };
+
       remove('feedback-form-state');
       return this.formEl.reset();
    }
